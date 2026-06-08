@@ -97,8 +97,12 @@ function saveProfile() {
 
 async function loadLessons() {
     try {
-        const response = await fetch('../data/lessons.json');
-        lessons = await response.json();
+        const tracks = ['ail', 'cop', 'dig', 'ent', 'per', 'pub', 'uiu', 'web'];
+        for (const t of tracks) {
+            const response = await fetch(`../data/lessons_${t}.json`);
+            const trackLessons = await response.json();
+            lessons = [...lessons, ...trackLessons];
+        }
     } catch (e) {
         console.error("Failed to load lessons", e);
     }
